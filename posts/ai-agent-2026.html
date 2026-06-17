@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Agent 元年：当大模型学会「自己写代码」— 2026 年 AI 正在重新定义软件工程的边界">
+  <meta name="keywords" content="AI Agent,大模型,编程,Copilot,Devin,软件工程">
+  <meta name="author" content="Kevin Zhang">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Agent 元年：当大模型学会「自己写代码」">
+  <meta property="og:description" content="从 Copilot 到 Devin，再到如今的多模态自主 Agent，2026 年的 AI 已经不再只是「辅助工具」">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://techpulse.dev/posts/ai-agent-2026">
+  <meta property="article:published_time" content="2026-06-15T10:00:00Z">
+  <meta property="article:author" content="Kevin Zhang">
+  <meta property="article:tag" content="AI">
+  <meta property="article:tag" content="编程">
+
+  <!-- JSON-LD Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "AI Agent 元年：当大模型学会「自己写代码」",
+    "description": "从 Copilot 到 Devin，再到如今的多模态自主 Agent，2026 年的 AI 已经不再只是「辅助工具」",
+    "datePublished": "2026-06-15T10:00:00Z",
+    "dateModified": "2026-06-15T10:00:00Z",
+    "author": { "@type": "Person", "name": "Kevin Zhang" },
+    "publisher": { "@type": "Organization", "name": "TechPulse" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://techpulse.dev/posts/ai-agent-2026" }
+  }
+  </script>
+
+  <title>AI Agent 元年：当大模型学会「自己写代码」 — TechPulse</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-glass: rgba(18, 18, 26, 0.75);
+      --text: #e4e4e7;
+      --text-muted: #71717a;
+      --text-dim: #52525b;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
+      --gradient-2: linear-gradient(135deg, #06b6d4, #6366f1);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Noto Serif SC', Georgia, serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --max-w: 760px;
+      --nav-h: 64px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex; align-items: center;
+    }
+    .nav__inner {
+      max-width: 1200px; width: 100%; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav__logo {
+      font-size: 1.25rem; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav__logo-icon {
+      width: 32px; height: 32px;
+      background: var(--gradient-1); border-radius: 8px;
+      display: grid; place-items: center; font-size: 0.85rem;
+    }
+    .nav__back {
+      font-size: 0.875rem; color: var(--text-muted);
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav__back:hover { color: var(--text); }
+
+    /* Article Header */
+    .article-header {
+      position: relative; z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 120px 24px 40px;
+    }
+    .article-header__cat {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .article-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      margin-bottom: 20px;
+      background: linear-gradient(to bottom, #fff, #a1a1aa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .article-header__meta {
+      display: flex; align-items: center; gap: 16px;
+      font-size: 0.875rem; color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .article-header__author {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-2);
+      display: grid; place-items: center;
+      font-size: 0.85rem; font-weight: 600; color: #fff;
+    }
+    .article-header__author-info .name { font-weight: 600; color: var(--text); }
+    .article-header__author-info .role { font-size: 0.8rem; color: var(--text-dim); }
+    .meta-sep { color: var(--text-dim); }
+    .read-time { font-family: var(--font-mono); font-size: 0.8rem; }
+
+    /* Hero Image */
+    .article-hero {
+      max-width: var(--max-w);
+      margin: 0 auto 40px;
+      padding: 0 24px;
+      position: relative; z-index: 1;
+    }
+    .article-hero__img {
+      aspect-ratio: 2/1;
+      background: linear-gradient(135deg, #1a0a2e, #2d1b69, #0f3460);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero__img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='760' height='380' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='%236366f1' stop-opacity='0.3'/%3E%3Cstop offset='100%25' stop-color='%236366f1' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='380' cy='190' r='120' fill='url(%23g)'/%3E%3Ccircle cx='380' cy='190' r='60' fill='none' stroke='%236366f1' stroke-opacity='0.4' stroke-width='1.5'/%3E%3Ccircle cx='380' cy='190' r='90' fill='none' stroke='%23818cf8' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='380' cy='190' r='150' fill='none' stroke='%236366f1' stroke-opacity='0.1' stroke-width='0.5'/%3E%3Ctext x='380' y='195' text-anchor='middle' font-family='monospace' font-size='24' fill='%236366f1' fill-opacity='0.6'%3EAGENT%3C/text%3E%3C/svg%3E") center/cover;
+      opacity: 0.5;
+    }
+
+    /* Article Content */
+    .article-content {
+      position: relative; z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .article-content h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+    .article-content p {
+      margin-bottom: 20px;
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+    .article-content blockquote {
+      margin: 32px 0;
+      padding: 20px 24px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-glow);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .article-content code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      padding: 2px 8px;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 4px;
+      color: var(--accent-light);
+    }
+    .article-content pre {
+      margin: 24px 0;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    .article-content pre code {
+      padding: 0; background: none; border-radius: 0; color: var(--text);
+    }
+    .article-content ul, .article-content ol {
+      margin: 16px 0 20px 24px;
+    }
+    .article-content li {
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+      list-style: disc;
+    }
+    .article-content ol li { list-style: decimal; }
+    .article-content strong { color: #fff; font-weight: 600; }
+    .article-content a { color: var(--accent-light); border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .article-content a:hover { border-bottom-color: var(--accent-light); }
+
+    /* Tags */
+    .article-tags {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 40px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .article-tags .tag {
+      padding: 6px 14px;
+      font-size: 0.8rem; font-weight: 500;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+    }
+
+    /* Share */
+    .article-share {
+      margin-top: 32px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .article-share span { font-size: 0.875rem; color: var(--text-dim); }
+    .share-btn {
+      width: 36px; height: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: grid; place-items: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .share-btn:hover { border-color: var(--accent); color: var(--accent-light); }
+
+    /* Author Card */
+    .author-card {
+      margin-top: 48px;
+      padding: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex; gap: 20px; align-items: flex-start;
+    }
+    .author-card__avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--gradient-1);
+      display: grid; place-items: center;
+      font-size: 1.2rem; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+    .author-card h4 { font-size: 1.1rem; margin-bottom: 4px; }
+    .author-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Related Posts */
+    .related {
+      margin-top: 60px;
+    }
+    .related h3 {
+      font-size: 1.25rem; font-weight: 700;
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .related h3::before {
+      content: '';
+      width: 4px; height: 18px;
+      background: var(--gradient-1);
+      border-radius: 2px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .related-card {
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .related-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .related-card__tag {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .related-card h4 {
+      font-size: 1rem; font-weight: 600;
+      line-height: 1.4; margin-bottom: 8px;
+    }
+    .related-card span { font-size: 0.8rem; color: var(--text-dim); }
+
+    /* Footer */
+    .footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    /* Back to top */
+    .back-top {
+      position: fixed; bottom: 32px; right: 32px;
+      width: 44px; height: 44px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: grid; place-items: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.3s;
+      z-index: 100;
+    }
+    .back-top.visible { opacity: 1; transform: translateY(0); }
+    .back-top:hover { border-color: var(--accent); color: var(--accent-light); }
+
+    /* Reading Progress */
+    .progress {
+      position: fixed; top: 0; left: 0;
+      height: 2px;
+      background: var(--gradient-1);
+      z-index: 1001;
+      transition: width 0.1s;
+    }
+
+    @media (max-width: 768px) {
+      .article-header { padding: 100px 20px 24px; }
+      .article-content { padding: 0 20px 60px; }
+      .article-hero { padding: 0 20px; }
+      .author-card { flex-direction: column; align-items: center; text-align: center; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">
+        <div class="nav__logo-icon">⚡</div>
+        <span>TechPulse</span>
+      </a>
+      <a href="/" class="nav__back">← 返回首页</a>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="article-header__cat">封面专题 · 人工智能</div>
+    <h1>AI Agent 元年：当大模型学会「自己写代码」</h1>
+    <div class="article-header__meta">
+      <div class="article-header__author">
+        <div class="avatar">K</div>
+        <div class="article-header__author-info">
+          <div class="name">Kevin Zhang</div>
+          <div class="role">高级技术编辑</div>
+        </div>
+      </div>
+      <span class="meta-sep">·</span>
+      <time datetime="2026-06-15">2026年6月15日</time>
+      <span class="meta-sep">·</span>
+      <span class="read-time">8 分钟阅读</span>
+    </div>
+  </header>
+
+  <!-- Hero Image -->
+  <div class="article-hero">
+    <div class="article-hero__img" role="img" aria-label="AI Agent 概念图"></div>
+  </div>
+
+  <!-- Article Content -->
+  <article class="article-content" role="article">
+    <p>2026 年 3 月的一个深夜，我收到了一条来自前同事的消息：<strong>「我今天一个 PR 都没自己写。」</strong></p>
+
+    <p>这不是夸张。他所在的团队已经全面接入了 AI Agent 工作流——从需求拆解、代码生成、测试编写到 Code Review，每一步都有 AI 参与。而他自己的角色，正在从「写代码的人」变成「审代码的人」。</p>
+
+    <blockquote>
+      「我不是在用 Copilot 补全代码。我是把一个 Epic 丢给 Agent，它自己拆成 Story，写好实现，跑通测试，然后提 PR 给我 review。」<br>
+      —— 某大厂后端工程师
+    </blockquote>
+
+    <h2>从辅助到自主：三年进化史</h2>
+
+    <p>回顾 AI 编程工具的发展，速度令人窒息：</p>
+
+    <ol>
+      <li><strong>2023 — 补全时代</strong>：GitHub Copilot 成为开发者标配，本质上是高级自动补全</li>
+      <li><strong>2024 — 对话时代</strong>：Cursor、Cline 等工具让开发者用自然语言描述需求，AI 生成完整代码块</li>
+      <li><strong>2025 — 代理时代</strong>：Devin、OpenHands 首次实现端到端的自主开发，但能力有限</li>
+      <li><strong>2026 — 多模态 Agent 时代</strong>：Agent 能看懂设计稿、理解需求文档、操作终端、浏览网页</li>
+    </ol>
+
+    <p>今年最显著的变化是<strong>多模态能力的突破</strong>。新一代 Agent 不再局限于文本——它们能「看」Figma 设计稿，「读」Confluence 文档，甚至「操作」浏览器完成端到端测试。</p>
+
+    <h2>真实案例：Agent 如何改变团队</h2>
+
+    <p>我们采访了 5 个不同规模的团队，他们的实践各不相同，但有一个共同点：<strong>初级开发的工作量被压缩了 60% 以上</strong>。</p>
+
+    <h3>案例一：电商团队的「全 Agent」模式</h3>
+
+    <p>某跨境电商团队将整个需求流程 Agent 化。产品经理在 Jira 写好 Story 后，Agent 自动：</p>
+
+    <ul>
+      <li>分析需求，拆解为技术任务</li>
+      <li>生成代码实现（包括单元测试）</li>
+      <li>创建 PR 并填写标准化的描述</li>
+      <li>运行 CI/CD 流水线</li>
+    </ul>
+
+    <p>人类工程师的主要工作变成了 <strong>Code Review 和架构决策</strong>。</p>
+
+    <pre><code>// Agent 生成的典型 PR 描述
+## Changes
+- feat: add product recommendation engine
+- test: add unit tests for recommendation API
+- perf: optimize Redis caching strategy
+
+## AI Confidence: 87%
+## Requires Human Review: Architecture decisions in
+  recommendation-engine.ts (L45-L62)</code></pre>
+
+    <h3>案例二：初创公司的「人机配对」模式</h3>
+
+    <p>一个 5 人初创团队采用了更保守的方式——每个开发者配对一个 AI Agent，类似结对编程。Agent 负责写测试、查文档、生成 boilerplate，人类专注核心逻辑。</p>
+
+    <p>创始人告诉我：<strong>「我们的产出相当于 15 人团队，但只花了 5 个人的成本。」</strong></p>
+
+    <h2>争议：这还是「编程」吗？</h2>
+
+    <p>当然，这一切并非没有争议。社区中最激烈的讨论是：<strong>当 AI 写了 80% 的代码，程序员的价值在哪里？</strong></p>
+
+    <p>我的看法是：编程的本质从来不是敲键盘。它是<strong>理解问题、设计方案、做出权衡</strong>的过程。AI Agent 只是把「表达」这一步自动化了——就像编译器把汇编自动化了一样。</p>
+
+    <blockquote>
+      「最好的工程师不是写代码最快的，而是做出最好决策的。AI 只是让这个差距更加明显了。」
+    </blockquote>
+
+    <p>但我们也必须正视一个问题：<strong>初级开发者的成长路径正在被切断</strong>。当 Agent 能完成所有「入门级」任务时，新人如何积累经验？这是整个行业需要共同思考的问题。</p>
+
+    <h2>展望：2027 年会怎样？</h2>
+
+    <p>基于目前的趋势，我大胆预测：</p>
+
+    <ol>
+      <li><strong>「AI 原生」开发团队</strong>将成为主流，而非特例</li>
+      <li><strong>架构师和系统设计师</strong>的需求将大幅上升</li>
+      <li><strong>代码质量</strong>反而会提升——因为 Agent 写的测试覆盖率远高于人类</li>
+      <li>新的<strong>「AI 工程师」角色</strong>会出现：不写代码，但精通如何指挥 Agent</li>
+    </ol>
+
+    <p>不管你是拥抱还是抗拒，变革已经发生。问题不是「AI 会不会取代程序员」，而是<strong>「你准备好和 AI 一起工作了吗？」</strong></p>
+
+    <!-- Tags -->
+    <div class="article-tags">
+      <span class="tag">AI Agent</span>
+      <span class="tag">大模型</span>
+      <span class="tag">软件工程</span>
+      <span class="tag">编程</span>
+      <span class="tag">开发者工具</span>
+    </div>
+
+    <!-- Share -->
+    <div class="article-share">
+      <span>分享：</span>
+      <button class="share-btn" aria-label="分享到 Twitter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </button>
+      <button class="share-btn" aria-label="复制链接">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </button>
+    </div>
+
+    <!-- Author Card -->
+    <div class="author-card">
+      <div class="author-card__avatar">K</div>
+      <div>
+        <h4>Kevin Zhang</h4>
+        <p>TechPulse 高级技术编辑，前 Google 工程师。关注 AI、开发者工具和软件架构。相信技术写作能让复杂的事情变简单。</p>
+      </div>
+    </div>
+
+    <!-- Related Posts -->
+    <div class="related">
+      <h3>相关推荐</h3>
+      <div class="related-grid">
+        <a href="/posts/multimodal-reasoning" class="related-card">
+          <div class="related-card__tag">人工智能</div>
+          <h4>多模态推理的下一步：从「看懂」到「想明白」</h4>
+          <span>Luna Chen · 6 分钟</span>
+        </a>
+        <a href="/posts/react-server-components" class="related-card">
+          <div class="related-card__tag">前端开发</div>
+          <h4>React Server Components 深度实战</h4>
+          <span>Alex Wang · 12 分钟</span>
+        </a>
+        <a href="/posts/zero-trust-ai" class="related-card">
+          <div class="related-card__tag">安全</div>
+          <h4>AI 时代的零信任架构</h4>
+          <span>Jason Huang · 11 分钟</span>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 TechPulse. 用技术人的视角，记录这个加速变化的世界。</p>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-top" id="backTop" aria-label="回到顶部">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script>
+    // Reading progress
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      progress.style.width = pct + '%';
+    });
+
+    // Back to top
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

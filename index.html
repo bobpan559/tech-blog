@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TechPulse 科技博客 — 探索前沿科技、AI、编程与数字生活的深度文章">
+  <meta name="keywords" content="科技博客,AI,人工智能,编程,前端,后端,开源,数码">
+  <meta name="author" content="TechPulse">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="TechPulse — 科技前沿博客">
+  <meta property="og:description" content="探索前沿科技、AI、编程与数字生活的深度文章">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://techpulse.dev">
+  <meta property="og:image" content="https://techpulse.dev/og-image.png">
+  <meta property="og:locale" content="zh_CN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TechPulse — 科技前沿博客">
+  <meta name="twitter:description" content="探索前沿科技、AI、编程与数字生活的深度文章">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://techpulse.dev">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "TechPulse",
+    "description": "探索前沿科技、AI、编程与数字生活的深度文章",
+    "url": "https://techpulse.dev",
+    "publisher": {
+      "@type": "Organization",
+      "name": "TechPulse",
+      "logo": { "@type": "ImageObject", "url": "https://techpulse.dev/logo.svg" }
+    }
+  }
+  </script>
+
+  <title>TechPulse — 科技前沿博客</title>
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== CSS Variables ===== */
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a26;
+      --bg-glass: rgba(18, 18, 26, 0.75);
+      --text: #e4e4e7;
+      --text-muted: #71717a;
+      --text-dim: #52525b;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
+      --gradient-2: linear-gradient(135deg, #06b6d4, #6366f1);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --max-w: 1200px;
+      --nav-h: 64px;
+    }
+
+    /* ===== Reset ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    ul, ol { list-style: none; }
+
+    /* ===== Background Grid ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== Ambient Glow ===== */
+    .glow-orb {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-orb--1 { background: #6366f1; top: -200px; left: -100px; }
+    .glow-orb--2 { background: #06b6d4; bottom: -200px; right: -100px; }
+
+    /* ===== Navigation ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+    .nav__inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav__logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav__logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-1);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav__links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav__links a:hover,
+    .nav__links a.active { color: var(--text); }
+    .nav__links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+
+    /* Mobile Menu Toggle */
+    .nav__toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 8px;
+    }
+    .nav__toggle svg { width: 24px; height: 24px; }
+
+    /* ===== Hero ===== */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 160px 24px 80px;
+      text-align: center;
+    }
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent-light);
+      margin-bottom: 24px;
+    }
+    .hero__badge span {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(to bottom, #fff, #a1a1aa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+    }
+    .btn--primary {
+      background: var(--gradient-1);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3);
+    }
+    .btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-hover);
+    }
+    .btn--ghost:hover { background: rgba(255,255,255,0.04); }
+
+    /* ===== Sections ===== */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+    .section__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .section__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section__title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--gradient-1);
+      border-radius: 2px;
+    }
+    .section__more {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+    .section__more:hover { color: var(--accent-light); }
+
+    /* ===== Category Tags ===== */
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 24px;
+    }
+    .tag {
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+    }
+    .tag:hover, .tag.active {
+      border-color: var(--accent);
+      color: var(--accent-light);
+      background: var(--accent-glow);
+    }
+
+    /* ===== Featured Post ===== */
+    .featured {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto 20px;
+      padding: 0 24px;
+    }
+    .featured__card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .featured__card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    }
+    .featured__img {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      position: relative;
+      overflow: hidden;
+    }
+    .featured__img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='400' height='250' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%236366f1' stop-opacity='0.2'/%3E%3Cstop offset='100%25' stop-color='%2306b6d4' stop-opacity='0.1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='200' cy='125' r='80' fill='url(%23g)'/%3E%3Ccircle cx='200' cy='125' r='50' fill='none' stroke='%236366f1' stroke-opacity='0.3' stroke-width='1'/%3E%3Ccircle cx='200' cy='125' r='100' fill='none' stroke='%236366f1' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E") center/cover;
+      opacity: 0.6;
+    }
+    .featured__body {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .featured__meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .featured__meta .cat {
+      color: var(--accent-light);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .featured__body h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .featured__body h2 a:hover { color: var(--accent-light); }
+    .featured__body p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+    .featured__author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gradient-2);
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .featured__author-info {
+      font-size: 0.85rem;
+    }
+    .featured__author-info .name { font-weight: 600; }
+    .featured__author-info .date { color: var(--text-dim); font-size: 0.8rem; }
+
+    /* ===== Post Grid ===== */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .post-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .post-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    }
+    .post-card__img {
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+    }
+    .post-card__img--ai { background: linear-gradient(135deg, #1a0a2e, #2d1b69); }
+    .post-card__img--dev { background: linear-gradient(135deg, #0a1628, #1a3a5c); }
+    .post-card__img--design { background: linear-gradient(135deg, #1a0f28, #3d1f5c); }
+    .post-card__img--cloud { background: linear-gradient(135deg, #0a1a1a, #1a3a3a); }
+    .post-card__img--mobile { background: linear-gradient(135deg, #1a1a0a, #3a3a1a); }
+    .post-card__img--security { background: linear-gradient(135deg, #1a0a0a, #3a1a1a); }
+
+    .post-card__img-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      display: grid;
+      place-items: center;
+      font-size: 3rem;
+    }
+    .post-card__body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .post-card__tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+    .post-card__body h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .post-card__body h3 a:hover { color: var(--accent-light); }
+    .post-card__body p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    .post-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .post-card__footer .read-time {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    /* ===== Sidebar / Newsletter ===== */
+    .newsletter {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .newsletter__card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter__card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 1px;
+      background: var(--gradient-1);
+    }
+    .newsletter__card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .newsletter__card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+    .newsletter__form {
+      display: flex;
+      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .newsletter__input {
+      flex: 1;
+      padding: 12px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter__input::placeholder { color: var(--text-dim); }
+    .newsletter__input:focus { border-color: var(--accent); }
+
+    /* ===== Footer ===== */
+    .footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+    }
+    .footer__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer__brand p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: 12px;
+      max-width: 280px;
+    }
+    .footer__col h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+    .footer__col a {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+    .footer__col a:hover { color: var(--text); }
+    .footer__bottom {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .footer__socials {
+      display: flex;
+      gap: 16px;
+    }
+    .footer__socials a {
+      color: var(--text-dim);
+      transition: color 0.2s;
+    }
+    .footer__socials a:hover { color: var(--accent-light); }
+
+    /* ===== Mobile Responsive ===== */
+    @media (max-width: 768px) {
+      .nav__links {
+        display: none;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        background: var(--bg-glass);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav__links.open { display: flex; }
+      .nav__toggle { display: block; }
+
+      .hero { padding: 120px 20px 60px; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+
+      .featured__card {
+        grid-template-columns: 1fr;
+      }
+      .featured__body { padding: 24px; }
+      .featured__body h2 { font-size: 1.35rem; }
+
+      .posts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .newsletter__card { padding: 32px 20px; }
+      .newsletter__form {
+        flex-direction: column;
+      }
+
+      .footer__inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .footer__brand {
+        grid-column: 1 / -1;
+      }
+      .footer__bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.75rem; }
+      .hero__actions { flex-direction: column; align-items: center; }
+      .tags { padding: 0 16px; }
+      .section { padding: 40px 16px; }
+      .footer__inner { grid-template-columns: 1fr; }
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate { animation: fade-up 0.6s ease-out forwards; opacity: 0; }
+    .animate:nth-child(2) { animation-delay: 0.1s; }
+    .animate:nth-child(3) { animation-delay: 0.2s; }
+    .animate:nth-child(4) { animation-delay: 0.3s; }
+    .animate:nth-child(5) { animation-delay: 0.4s; }
+    .animate:nth-child(6) { animation-delay: 0.5s; }
+
+    /* ===== Scrollbar ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+    /* ===== Back to Top ===== */
+    .back-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 44px;
+      height: 44px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      z-index: 100;
+    }
+    .back-top.visible { opacity: 1; transform: translateY(0); }
+    .back-top:hover { border-color: var(--accent); color: var(--accent-light); }
+  </style>
+</head>
+<body>
+  <!-- Ambient Glow -->
+  <div class="glow-orb glow-orb--1"></div>
+  <div class="glow-orb glow-orb--2"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="主导航">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="TechPulse 首页">
+        <div class="nav__logo-icon">⚡</div>
+        <span>TechPulse</span>
+      </a>
+      <div class="nav__links" id="navLinks">
+        <a href="/" class="active">首页</a>
+        <a href="/ai">人工智能</a>
+        <a href="/dev">开发</a>
+        <a href="/design">设计</a>
+        <a href="/cloud">云原生</a>
+        <a href="/about">关于</a>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-label="切换菜单" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero__badge"><span></span> 每日更新</div>
+    <h1>探索科技的边界<br>书写未来的代码</h1>
+    <p>深度解析人工智能、前端工程、云原生架构与数字产品设计，用技术人的视角看世界。</p>
+    <div class="hero__actions">
+      <a href="#posts" class="btn btn--primary">开始阅读 →</a>
+      <a href="/rss.xml" class="btn btn--ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+        RSS 订阅
+      </a>
+    </div>
+  </header>
+
+  <!-- Category Tags -->
+  <div class="tags" role="tablist" aria-label="文章分类">
+    <button class="tag active" role="tab" aria-selected="true">全部</button>
+    <button class="tag" role="tab">人工智能</button>
+    <button class="tag" role="tab">前端开发</button>
+    <button class="tag" role="tab">后端架构</button>
+    <button class="tag" role="tab">UI/UX 设计</button>
+    <button class="tag" role="tab">云原生</button>
+    <button class="tag" role="tab">安全</button>
+  </div>
+
+  <!-- Featured Post -->
+  <article class="featured animate">
+    <div class="featured__card">
+      <div class="featured__img" aria-hidden="true"></div>
+      <div class="featured__body">
+        <div class="featured__meta">
+          <span class="cat">封面专题</span>
+          <span>·</span>
+          <time datetime="2026-06-15">2026年6月15日</time>
+        </div>
+        <h2><a href="/posts/ai-agent-2026">AI Agent 元年：当大模型学会「自己写代码」</a></h2>
+        <p>从 Copilot 到 Devin，再到如今的多模态自主 Agent，2026 年的 AI 已经不再只是「辅助工具」。它正在重新定义软件工程的边界。我们深入采访了 5 位一线工程师，聊聊这场变革的真实面貌。</p>
+        <div class="featured__author">
+          <div class="avatar">K</div>
+          <div class="featured__author-info">
+            <div class="name">Kevin Zhang</div>
+            <div class="date">8 分钟阅读</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Latest Posts -->
+  <section class="section" id="posts" aria-label="最新文章">
+    <div class="section__header">
+      <h2 class="section__title">最新文章</h2>
+      <a href="/archive" class="section__more">查看全部 →</a>
+    </div>
+    <div class="posts-grid">
+      <!-- Post 1 -->
+      <article class="post-card animate">
+        <div class="post-card__img post-card__img--ai">
+          <div class="post-card__img-pattern">🧠</div>
+        </div>
+        <div class="post-card__body">
+          <div class="post-card__tag">人工智能</div>
+          <h3><a href="/posts/multimodal-reasoning">多模态推理的下一步：从「看懂」到「想明白」</a></h3>
+          <p>GPT-5 和 Gemini Ultra 2 的多模态能力已经超越了简单的图文理解，开始展现出类人的因果推理能力。</p>
+          <div class="post-card__footer">
+            <span>Luna Chen</span>
+            <span class="read-time">6 min</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="post-card animate">
+        <div class="post-card__img post-card__img--dev">
+          <div class="post-card__img-pattern">⚙️</div>
+        </div>
+        <div class="post-card__body">
+          <div class="post-card__tag">前端开发</div>
+          <h3><a href="/posts/react-server-components">React Server Components 深度实战：性能提升 40% 的秘密</a></h3>
+          <p>RSC 已经成为生产级标配。本文通过一个真实电商项目，拆解 Server Components 如何将首屏加载时间砍半。</p>
+          <div class="post-card__footer">
+            <span>Alex Wang</span>
+            <span class="read-time">12 min</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="post-card animate">
+        <div class="post-card__img post-card__img--design">
+          <div class="post-card__img-pattern">🎨</div>
+        </div>
+        <div class="post-card__body">
+          <div class="post-card__tag">UI/UX 设计</div>
+          <h3><a href="/posts/spatial-ui">空间计算时代：UI 设计师需要重新学习的一切</a></h3>
+          <p>Apple Vision Pro 和 Meta Quest 4 正在催生全新的交互范式。当界面从 2D 走向 3D，设计原则也在被重写。</p>
+          <div class="post-card__footer">
+            <span>Mia Li</span>
+            <span class="read-time">9 min</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 4 -->
+      <article class="post-card animate">
+        <div class="post-card__img post-card__img--cloud">
+          <div class="post-card__img-pattern">☁️</div>
+        </div>
+        <div class="post-card__body">
+          <div class="post-card__tag">云原生</div>
+          <h3><a href="/posts/wasm-edge">WebAssembly 在边缘计算中的崛起：比容器快 10 倍</a></h3>
+          <p>Wasm 从浏览器走向服务器端，正在成为边缘计算的新宠。Cloudflare、Fastly、Fermyon 的实战数据对比。</p>
+          <div class="post-card__footer">
+            <span>David Liu</span>
+            <span class="read-time">7 min</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 5 -->
+      <article class="post-card animate">
+        <div class="post-card__img post-card__img--mobile">
+          <div class="post-card__img-pattern">📱</div>
+        </div>
+        <div class="post-card__body">
+          <div class="post-card__tag">移动开发</div>
+          <h3><a href="/posts/flutter-4">Flutter 4.0 发布：原生级性能与 Web 部署的终极融合</a></h3>
+          <p>Google 终于兑现了承诺。Impeller 引擎全面铺开，Web 编译产物缩小 60%，一套代码跑遍所有平台不再是口号。</p>
+          <div class="post-card__footer">
+            <span>Sophie Xu</span>
+            <span class="read-time">10 min</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 6 -->
+      <article class="post-card animate">
+        <div class="post-card__img post-card__img--security">
+          <div class="post-card__img-pattern">🔐</div>
+        </div>
+        <div class="post-card__body">
+          <div class="post-card__tag">安全</div>
+          <h3><a href="/posts/zero-trust-ai">AI 时代的零信任架构：当攻击者也用上了大模型</a></h3>
+          <p>生成式 AI 不仅赋能防御者，也让攻击手段指数级升级。如何在 AI 驱动的威胁环境中构建真正的零信任？</p>
+          <div class="post-card__footer">
+            <span>Jason Huang</span>
+            <span class="read-time">11 min</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter" aria-label="邮件订阅">
+    <div class="newsletter__card">
+      <h3>📬 不错过任何一篇深度文章</h3>
+      <p>每周精选 3 篇技术文章，直达你的收件箱。无垃圾，纯干货。</p>
+      <form class="newsletter__form" action="/subscribe" method="POST">
+        <input type="email" class="newsletter__input" name="email" placeholder="your@email.com" required aria-label="邮箱地址">
+        <button type="submit" class="btn btn--primary">订阅</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="nav__logo">
+          <div class="nav__logo-icon">⚡</div>
+          <span>TechPulse</span>
+        </div>
+        <p>用技术人的视角，记录这个加速变化的世界。深度、独立、不跟风。</p>
+      </div>
+      <div class="footer__col">
+        <h4>分类</h4>
+        <a href="/ai">人工智能</a>
+        <a href="/dev">前端开发</a>
+        <a href="/backend">后端架构</a>
+        <a href="/design">UI/UX 设计</a>
+        <a href="/cloud">云原生</a>
+      </div>
+      <div class="footer__col">
+        <h4>关于</h4>
+        <a href="/about">关于我们</a>
+        <a href="/authors">作者团队</a>
+        <a href="/contact">联系方式</a>
+        <a href="/contribute">投稿指南</a>
+      </div>
+      <div class="footer__col">
+        <h4>更多</h4>
+        <a href="/rss.xml">RSS 订阅</a>
+        <a href="/sitemap.xml">网站地图</a>
+        <a href="/privacy">隐私政策</a>
+        <a href="/terms">使用条款</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 TechPulse. All rights reserved.</span>
+      <div class="footer__socials">
+        <a href="https://twitter.com/techpulse" aria-label="Twitter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://github.com/techpulse" aria-label="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="/rss.xml" aria-label="RSS">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-top" id="backTop" aria-label="回到顶部">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+
+    // Back to top
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Tag filter interaction
+    document.querySelectorAll('.tag').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tag').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+      });
+    });
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.post-card, .featured').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
